@@ -1,0 +1,8 @@
+# Local test and review output
+artifacts/
+*.log
+
+# Operating-system metadata
+.DS_Store
+Thumbs.db
+Desktop.ini

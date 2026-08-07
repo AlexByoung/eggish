@@ -305,7 +305,8 @@ class AudioManager {
   }
 
   createMusicSynth(preset) {
-    if (preset !== 'transitionAmbience' || !this.context) return null;
+    if (!this.context) return null;
+    if (preset !== 'transitionAmbience') return this.createSequencedMusicSynth(preset);
     const context = this.context;
     const gain = context.createGain();
     const low = context.createOscillator();
@@ -377,6 +378,166 @@ class AudioManager {
       }
     };
     return sound;
+  }
+
+  createSequencedMusicSynth(preset) {
+    const themes = {
+      toffeeForest: {
+        stepMs: 268,
+        melody: [523.25, 659.25, 783.99, 659.25, 440, 523.25, 659.25, 783.99],
+        bass: [130.81, 130.81, 174.61, 196],
+        melodyType: 'triangle',
+        bassType: 'sine',
+        noteLength: 0.19,
+        melodyLevel: 0.58,
+        bassLevel: 0.34,
+        harmonic: 0.18
+      },
+      marshmallowMist: {
+        stepMs: 395,
+        melody: [587.33, 440, 523.25, 698.46, 659.25, 440, 523.25, 392],
+        bass: [146.83, 116.54, 174.61, 130.81],
+        melodyType: 'sine',
+        bassType: 'sine',
+        noteLength: 0.48,
+        melodyLevel: 0.42,
+        bassLevel: 0.26,
+        harmonic: 0.1
+      },
+      caramelMirror: {
+        stepMs: 312,
+        melody: [440, 554.37, 659.25, 493.88, 587.33, 739.99, 659.25, 554.37],
+        bass: [110, 164.81, 146.83, 164.81],
+        melodyType: 'sine',
+        bassType: 'triangle',
+        noteLength: 0.3,
+        melodyLevel: 0.5,
+        bassLevel: 0.28,
+        harmonic: 0.24
+      }
+    };
+    const theme = themes[preset];
+    if (!theme) return null;
+
+    const context = this.context;
+    const output = context.createGain();
+    output.gain.value = 0;
+    output.connect(context.destination);
+    const activeNotes = new Set();
+    let timer = null;
+    let step = 0;
+    let stopped = false;
+
+    const scheduleNote = (frequency, type, duration, level, harmonic = 0) => {
+      if (stopped) return;
+      const now = context.currentTime + 0.012;
+      const oscillator = context.createOscillator();
+      const envelope = context.createGain();
+      oscillator.type = type;
+      oscillator.frequency.setValueAtTime(frequency, now);
+      envelope.gain.setValueAtTime(0.0001, now);
+      envelope.gain.exponentialRampToValueAtTime(level, now + 0.025);
+      envelope.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+      oscillator.connect(envelope).connect(output);
+      oscillator.start(now);
+      oscillator.stop(now + duration + 0.03);
+      activeNotes.add(oscillator);
+      oscillator.addEventListener('ended', () => {
+        activeNotes.delete(oscillator);
+        oscillator.disconnect();
+        envelope.disconnect();
+      }, { once: true });
+
+      if (harmonic > 0) {
+        const shimmer = context.createOscillator();
+        const shimmerEnvelope = context.createGain();
+        shimmer.type = 'sine';
+        shimmer.frequency.setValueAtTime(frequency * 2, now);
+        shimmerEnvelope.gain.setValueAtTime(0.0001, now);
+        shimmerEnvelope.gain.exponentialRampToValueAtTime(level * harmonic, now + 0.018);
+        shimmerEnvelope.gain.exponentialRampToValueAtTime(0.0001, now + duration * 0.72);
+        shimmer.connect(shimmerEnvelope).connect(output);
+        shimmer.start(now);
+        shimmer.stop(now + duration + 0.03);
+        activeNotes.add(shimmer);
+        shimmer.addEventListener('ended', () => {
+          activeNotes.delete(shimmer);
+          shimmer.disconnect();
+          shimmerEnvelope.disconnect();
+        }, { once: true });
+      }
+    };
+
+    const playStep = () => {
+      scheduleNote(
+        theme.melody[step % theme.melody.length],
+        theme.melodyType,
+        theme.noteLength,
+        theme.melodyLevel,
+        theme.harmonic
+      );
+      if (step % 2 === 0) {
+        scheduleNote(
+          theme.bass[Math.floor(step / 2) % theme.bass.length],
+          theme.bassType,
+          Math.min(theme.noteLength * 1.55, theme.stepMs / 1000 * 1.8),
+          theme.bassLevel
+        );
+      }
+      step = (step + 1) % theme.melody.length;
+    };
+
+    const startSequence = () => {
+      if (timer || stopped) return;
+      playStep();
+      timer = window.setInterval(playStep, theme.stepMs);
+    };
+    const stopSequence = () => {
+      if (!timer) return;
+      window.clearInterval(timer);
+      timer = null;
+    };
+
+    return {
+      volume: 0,
+      isPlaying: false,
+      isPaused: false,
+      play() {
+        this.isPlaying = true;
+        this.isPaused = false;
+        startSequence();
+      },
+      setVolume(value) {
+        this.volume = value;
+        if (!stopped) output.gain.setTargetAtTime(value * 0.22, context.currentTime, 0.05);
+      },
+      pause() {
+        this.isPaused = true;
+        this.isPlaying = false;
+        stopSequence();
+        output.gain.setTargetAtTime(0, context.currentTime, 0.03);
+      },
+      resume() {
+        this.isPaused = false;
+        this.isPlaying = true;
+        output.gain.setTargetAtTime(this.volume * 0.22, context.currentTime, 0.05);
+        startSequence();
+      },
+      stop() {
+        if (stopped) return;
+        stopped = true;
+        this.isPlaying = false;
+        stopSequence();
+        activeNotes.forEach((oscillator) => {
+          try { oscillator.stop(); } catch { /* note already ended */ }
+        });
+        activeNotes.clear();
+      },
+      destroy() {
+        stopSequence();
+        output.disconnect();
+      }
+    };
   }
 
   destroy() {

@@ -7,6 +7,7 @@
 - Verify the top-left gear hides the controls, pauses gameplay, and opens the existing action panel with current attempt/death counts; Resume restores the controls, and Restart restores the current level without incrementing deaths.
 - Verify the centered controls reminder appears in Level 1 and is hidden from Level 2 onward, while the level label remains at the top right.
 - Rotate to portrait during gameplay and confirm the bilingual rotation screen pauses the Scene. Rotate back and confirm gameplay and touch controls resume without a duplicate timer or input.
+- In iPhone/iPad Safari landscape, test with the address and tab bars both expanded and collapsed; the complete 16:9 canvas, top HUD, bottom controls, and safe-area padding must remain visible after every `visualViewport` resize.
 - Background the browser during active gameplay and confirm held controls clear and the pause menu is shown on return.
 - Load every level through `?dev=1`, confirm one canvas, visible landscape touch controls whenever no dialogue is active, and no new Console errors.
 - Visit once online, wait for service-worker installation, stop the server, and reload. The title menu, local Phaser runtime, scripts, sprite, CSS, manifest, and icons must all resolve from cache.
@@ -83,7 +84,8 @@ Open `http://127.0.0.1:8765/index.html`. Phaser is loaded from a CDN, so network
 - Before the first pointer/keyboard gesture, audio remains silent without an autoplay exception; the first interaction unlocks audio without replaying queued SFX.
 - Jump, landing, death, pressure plate, door opening, UI hover/select, and level-clear events produce at most one appropriate feedback event per semantic trigger.
 - Pause stops music and active continuous SFX; resume does not duplicate loops. Restart, replay, return to title, and level transition leave no old loop playing.
-- With menu and world music paths unset or unavailable, title, settings, pause, level select, all twenty levels, and transitions remain usable without a JavaScript error.
+- Verify Levels 1–7 use the warm `toffeeForest` loop, Levels 8–12 use the slower `marshmallowMist` loop, Level 13 can crossfade into `transitionAmbience`, and Levels 14–20 use the bright `caramelMirror` loop.
+- With optional menu music paths unset or unavailable, title, settings, pause, level select, all twenty levels, and transitions remain usable without a JavaScript error.
 - On a fresh save, the language fork appears before the title. Chinese mode contains only Chinese interface copy; English mode contains only English interface copy. The choice survives reload without changing the legacy save key.
 - In Levels 8, 9, 11, and 12, verify the Bible-aligned opening narrative hint appears once in the selected language and does not overlap or replace the existing segment hints.
 - Compare Level 1–7 distant scenery with Level 8: World 1 reads as toffee forest/amber chapel/sticky syrup, while World 2 reads as open stepped cloud walls and mist islands rather than the same composition recolored.

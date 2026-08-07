@@ -2353,7 +2353,7 @@ function beginLevel14MirrorEnding() {
 
 function startLevel14() {
   cleanupCurrentLevel(this);
-  audioManager.playMusic('transitionAmbience');
+  audioManager.playMusic('world3Music');
 
   currentLevel = 14;
   isCleared = false;
@@ -2561,7 +2561,7 @@ function createWorld3ChallengeDoor(scene, buttonX, doorX) {
 
 function startLevel15() {
   cleanupCurrentLevel(this);
-  audioManager.playMusic('transitionAmbience');
+  audioManager.playMusic('world3Music');
   currentLevel = 15;
   isCleared = false;
   clearPanel.setVisible(false);
@@ -2730,7 +2730,7 @@ function resetLevel15(preserveCheckpoint = false) {
 
 function startLevel16() {
   cleanupCurrentLevel(this);
-  audioManager.playMusic('transitionAmbience');
+  audioManager.playMusic('world3Music');
   currentLevel = 16;
   isCleared = false;
   clearPanel.setVisible(false);
@@ -3010,7 +3010,7 @@ function resetLateWorldLevel(scene, defaultSpawn, preserveCheckpoint, options = 
 
 function startLevel17() {
   cleanupCurrentLevel(this);
-  audioManager.playMusic('transitionAmbience');
+  audioManager.playMusic('world3Music');
   currentLevel = 17;
   isCleared = false;
   clearPanel.setVisible(false);
@@ -3146,7 +3146,7 @@ function beginLevel18Reunion() {
 
 function startLevel18() {
   cleanupCurrentLevel(this);
-  audioManager.playMusic('transitionAmbience');
+  audioManager.playMusic('world3Music');
   currentLevel = 18;
   isCleared = false;
   clearPanel.setVisible(false);
@@ -3354,7 +3354,7 @@ function resetLevel18(preserveCheckpoint = false) {
 
 function startLevel19() {
   cleanupCurrentLevel(this);
-  audioManager.playMusic('transitionAmbience');
+  audioManager.playMusic('world3Music');
   currentLevel = 19;
   isCleared = false;
   clearPanel.setVisible(false);
@@ -3534,7 +3534,7 @@ function clearLateWorldStoryPresentation(scene) {
 
 function startLevel20() {
   cleanupCurrentLevel(this);
-  audioManager.playMusic('transitionAmbience');
+  audioManager.playMusic('world3Music');
   currentLevel = 20;
   isCleared = false;
   clearPanel.setVisible(false);

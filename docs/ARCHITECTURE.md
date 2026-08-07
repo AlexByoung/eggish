@@ -36,6 +36,7 @@ The game uses one Phaser Scene configured as `{ preload, create, update }` in `j
 - Keyboard and DOM touch controls feed one shared input abstraction; mobile movement uses bottom-left Left/Right buttons, while tapping the right half of the game surface triggers the unchanged jump rule. The top-left gear pauses gameplay and opens the existing resume/restart/level-select/main-menu panel, where attempts and deaths are shown.
 - Coarse-pointer devices receive only visible Left/Right movement controls plus right-half-screen jumping. Touch controls hide during menus, dialogue, completion, and the ending cinematic. The centered controls reminder is visible only in Level 1.
 - Portrait orientation blocks gameplay and pauses the Scene until the device returns to landscape. Browser backgrounding clears held touch state and opens the pause menu during active gameplay.
+- The DOM shell uses `dvh` with a `visualViewport.height` CSS-variable fallback so Safari address/tab bars and their expand-collapse transitions cannot make the 16:9 game container taller than the actually visible viewport.
 - `app.webmanifest` requests fullscreen landscape presentation and points to standard and maskable icons under `assets/icons/`.
 - `service-worker.js` precaches the complete same-origin application shell, uses a network-first navigation strategy with an offline `index.html` fallback, and serves versioned cached runtime assets without relying on query strings.
 - Developer-only level access and the ending preview are available under `?dev=1`; production URLs keep the ending-preview button hidden.
@@ -108,7 +109,7 @@ Objects are Phaser Arcade Physics images, sprites, groups, and generated texture
 - Gameplay and UI code emit semantic events through the single global `audioManager`; synthesis parameters and playback policy are not stored in level builders.
 - Short SFX use native Web Audio and do not add a dependency. The current wired events are jump, landing, death, pressure plate, door opening, UI hover/select, and level clear.
 - `boxPush` and `movingPlatform` have configured loop definitions and manager lifecycle APIs, but their per-frame gameplay triggers are intentionally deferred to a later feedback pass.
-- Music entries support Phaser preload, looping, switching, and fades. Their paths are currently `null`, so absent music is a supported silent state. Future files belong under `assets/audio/` and are registered only in `js/audio-config.js`.
+- Music entries support Phaser preload, procedural Web Audio loops, switching, and fades. World 1, World 2, and World 3 currently use the `toffeeForest`, `marshmallowMist`, and `caramelMirror` procedural themes; the Level 13 boundary retains a separate transition ambience. Optional future audio files belong under `assets/audio/` and are registered only in `js/audio-config.js`.
 - Browser autoplay restrictions are handled by deferring music until the first pointer or keyboard interaction. One-shot SFX requested before unlock are discarded rather than replayed in a burst.
 - Pausing gameplay pauses music and active loops. Title and level-transition shell states can keep audio active while physics and Scene time remain paused.
 

@@ -23,7 +23,19 @@ const config = {
   scene: { preload, create, update }
 };
 
+syncVisibleViewportHeight();
 new Phaser.Game(config);
+
+function syncVisibleViewportHeight() {
+  const visibleHeight = window.visualViewport?.height || window.innerHeight;
+  const visibleWidth = window.visualViewport?.width || window.innerWidth;
+  if (!Number.isFinite(visibleHeight) || visibleHeight <= 0) return;
+  const rootStyle = document.documentElement.style;
+  rootStyle.setProperty('--app-height', `${Math.round(visibleHeight)}px`);
+  if (Number.isFinite(visibleWidth) && visibleWidth > 0) {
+    rootStyle.setProperty('--game-width', `${Math.floor(Math.min(960, visibleWidth, visibleHeight * 16 / 9))}px`);
+  }
+}
 
 function usesTouchControls() {
   return (navigator.maxTouchPoints || 0) > 0
@@ -1274,8 +1286,14 @@ function setupMobileLifecycle(scene) {
     updateTouchControlsVisibility();
   };
   portraitQuery.addEventListener?.('change', updateOrientation);
-  window.addEventListener('orientationchange', updateOrientation);
-  window.addEventListener('resize', updateOrientation);
+  const updateMobileViewport = () => {
+    syncVisibleViewportHeight();
+    updateOrientation();
+  };
+  window.addEventListener('orientationchange', updateMobileViewport);
+  window.addEventListener('resize', updateMobileViewport);
+  window.visualViewport?.addEventListener('resize', updateMobileViewport);
+  window.visualViewport?.addEventListener('scroll', syncVisibleViewportHeight);
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
       clearTouchInput();
@@ -1286,7 +1304,7 @@ function setupMobileLifecycle(scene) {
       }
     }
   });
-  updateOrientation();
+  updateMobileViewport();
 }
 
 function setupShell(scene) {
@@ -1467,7 +1485,7 @@ function transitionToLevel(scene, level) {
   isTransitioning = true;
   setGameplayPaused(scene, true, false);
   audioManager.playMusic(
-    level >= 14 ? 'transitionAmbience' : level >= 8 ? 'world2Music' : 'levelMusic'
+    level >= 14 ? 'world3Music' : level >= 8 ? 'world2Music' : 'levelMusic'
   );
   showMenu(null);
   hideClearActions();

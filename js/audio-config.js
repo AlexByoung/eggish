@@ -28,11 +28,15 @@ const AUDIO_CONFIG = Object.freeze({
     },
     levelMusic: {
       key: 'level_music', category: 'music', path: null, volume: 0.35,
-      loop: true, fadeIn: 500, fadeOut: 400
+      loop: true, fadeIn: 650, fadeOut: 500, synth: 'toffeeForest'
     },
     world2Music: {
       key: 'world2_music', category: 'music', path: null, volume: 0.34,
-      loop: true, fadeIn: 900, fadeOut: 650
+      loop: true, fadeIn: 1000, fadeOut: 750, synth: 'marshmallowMist'
+    },
+    world3Music: {
+      key: 'world3_music', category: 'music', path: null, volume: 0.32,
+      loop: true, fadeIn: 1100, fadeOut: 800, synth: 'caramelMirror'
     },
     transitionAmbience: {
       key: 'transition_ambience', category: 'music', path: null, volume: 0.25,
