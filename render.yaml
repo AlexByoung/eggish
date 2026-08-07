@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: danzi-run
+    runtime: static
+    plan: free
+    buildCommand: echo "Static Phaser game - no build required"
+    staticPublishPath: .
+    autoDeployTrigger: commit

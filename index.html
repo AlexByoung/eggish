@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffd7e5">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="蛋仔快跑">
+  <title>蛋仔快跑</title>
+  <link rel="manifest" href="app.webmanifest">
+  <link rel="icon" href="assets/icons/icon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" sizes="180x180">
+  <link rel="stylesheet" href="css/ui.css?v=20260806-render-ready">
+</head>
+<body>
+  <main id="game" tabindex="0" aria-label="蛋仔快跑 2D platform game"></main>
+
+  <nav id="touch-controls" aria-label="触控操作 / Touch controls" hidden>
+    <div class="touch-control-cluster touch-directions">
+      <button type="button" data-touch-input="left" aria-label="向左 / Move left">←</button>
+      <button type="button" data-touch-input="right" aria-label="向右 / Move right">→</button>
+    </div>
+    <button id="touch-settings" type="button" aria-label="游戏设置 / Game settings">⚙</button>
+  </nav>
+
+  <section id="orientation-warning" role="status" aria-live="polite" hidden>
+    <div aria-hidden="true">↻</div>
+    <strong>请横屏游玩</strong>
+    <span>ROTATE TO LANDSCAPE</span>
+  </section>
+
+  <section id="language-menu" class="menu-panel" aria-label="语言 / Language">
+    <h1>语言 / Language</h1>
+    <p>请选择语言 / Choose a language</p>
+    <div class="menu-buttons">
+      <button id="choose-chinese" class="ui-button" data-tone="pink" type="button">中文</button>
+      <button id="choose-english" class="ui-button" data-tone="sky" type="button">English</button>
+    </div>
+  </section>
+
+  <section id="title-menu" class="menu-panel" aria-label="Main menu" hidden>
+    <h1>蛋仔快跑</h1>
+    <p>世界可以乱，但我的糖罐子不能空。</p>
+    <div class="menu-buttons">
+      <button id="continue-button" class="ui-button" data-tone="pink" type="button">START GAME</button>
+      <button id="open-level-select" class="ui-button" data-tone="mint" type="button">LEVEL SELECT</button>
+      <button id="open-settings" class="ui-button" data-tone="purple" type="button">SETTINGS</button>
+      <button id="open-language" class="ui-button" data-tone="sky" type="button">LANGUAGE</button>
+    </div>
+  </section>
+
+  <section id="level-select-menu" class="menu-panel" aria-label="Level select" hidden>
+    <h1>LEVEL SELECT</h1>
+    <p>Complete a level to unlock the next one.</p>
+    <div class="menu-buttons">
+      <button class="ui-button level-select-button" data-tone="pink" data-level="1" data-name="糖浆浅滩" type="button">1</button>
+      <button class="ui-button level-select-button" data-tone="mint" data-level="2" data-name="糖箱门廊" type="button">2</button>
+      <button class="ui-button level-select-button" data-tone="purple" data-level="3" data-name="焦糖断桥" type="button">3</button>
+      <button class="ui-button level-select-button" data-tone="butter" data-level="4" data-name="软糖节拍桥" type="button">4</button>
+      <button class="ui-button level-select-button" data-tone="pink" data-level="5" data-name="太妃糖炉廊" type="button">5</button>
+      <button class="ui-button level-select-button" data-tone="mint" data-level="6" data-name="薄荷可可轮班厂" type="button">6</button>
+      <button class="ui-button level-select-button" data-tone="purple" data-level="7" data-name="棉花糖升降站" type="button">7</button>
+      <button class="ui-button level-select-button" data-tone="sky" data-level="8" data-name="棉花糖迷雾地带" type="button">8</button>
+      <button class="ui-button level-select-button" data-tone="purple" data-level="9" data-name="棉花糖雾塔" type="button">9</button>
+      <button class="ui-button level-select-button" data-tone="pink" data-level="10" data-name="棉花糖雾灵殿" type="button">10</button>
+      <button class="ui-button level-select-button" data-tone="sky" data-level="11" data-name="雾潮分岔站" type="button">11</button>
+      <button class="ui-button level-select-button" data-tone="purple" data-level="12" data-name="棉花糖毕业回廊" type="button">12</button>
+      <button class="ui-button level-select-button" data-tone="butter" data-level="13" data-name="雾散镜光桥" type="button">13</button>
+      <button class="ui-button level-select-button" data-tone="pink" data-level="14" data-name="镜子花园" type="button">14</button>
+      <button class="ui-button level-select-button" data-tone="purple" data-level="15" data-name="小泥人被抓走了" type="button">15</button>
+      <button class="ui-button level-select-button" data-tone="sky" data-level="16" data-name="一个人的机关路" type="button">16</button>
+      <button class="ui-button level-select-button" data-tone="mint" data-level="17" data-name="寻找小泥人" type="button">17</button>
+      <button class="ui-button level-select-button" data-tone="pink" data-level="18" data-name="小泥人回来了" type="button">18</button>
+      <button class="ui-button level-select-button" data-tone="purple" data-level="19" data-name="风中的两条路" type="button">19</button>
+      <button class="ui-button level-select-button" data-tone="butter" data-level="20" data-name="糖果大考验" type="button">20</button>
+      <button id="ending-preview-button" class="ui-button developer-preview-button" data-tone="sky" type="button" hidden>开发模式 · 结局动画预览</button>
+      <button id="level-select-back" class="ui-button menu-back" type="button">BACK</button>
+    </div>
+  </section>
+
+  <section id="settings-menu" class="menu-panel" aria-label="Settings" hidden>
+    <h1>SETTINGS</h1>
+    <p>Audio and visual preferences are stored with your progress.</p>
+    <div class="audio-settings" aria-label="Audio settings">
+      <label for="master-volume">MASTER <output id="master-volume-value">80%</output></label>
+      <input id="master-volume" type="range" min="0" max="100" step="5" value="80">
+      <label for="music-volume">MUSIC <output id="music-volume-value">55%</output></label>
+      <input id="music-volume" type="range" min="0" max="100" step="5" value="55">
+      <label for="sfx-volume">SFX <output id="sfx-volume-value">80%</output></label>
+      <input id="sfx-volume" type="range" min="0" max="100" step="5" value="80">
+    </div>
+    <div class="menu-buttons">
+      <button id="mute-toggle" class="ui-button" data-tone="sky" type="button">SOUND: ON</button>
+      <button id="motion-toggle" class="ui-button" data-tone="butter" type="button">MOTION: FULL</button>
+      <button id="clear-save-button" class="ui-button" data-tone="pink" type="button">CLEAR ALL SAVE DATA</button>
+      <button id="settings-back" class="ui-button menu-back" type="button">BACK</button>
+    </div>
+  </section>
+
+  <section id="pause-menu" class="menu-panel" aria-label="Pause menu" hidden>
+    <h1>PAUSED</h1>
+    <p>The game is resting right where you left it.</p>
+    <div id="pause-stats" aria-live="polite">
+      <span id="pause-attempts">ATTEMPT 1</span>
+      <span id="pause-deaths">DEATHS 0</span>
+    </div>
+    <div class="menu-buttons">
+      <button id="resume-button" class="ui-button" data-tone="mint" type="button">RESUME</button>
+      <button id="restart-button" class="ui-button" data-tone="pink" type="button">RESTART LEVEL</button>
+      <button id="pause-level-select" class="ui-button" data-tone="purple" type="button">LEVEL SELECT</button>
+      <button id="return-title-button" class="ui-button menu-back" type="button">MAIN MENU</button>
+    </div>
+  </section>
+
+  <div id="clear-actions" aria-label="Level complete actions">
+    <button id="next-level-button" type="button">NEXT LEVEL</button>
+    <button id="replay-button" type="button">REPLAY</button>
+    <button id="clear-level-select-button" type="button">LEVEL SELECT</button>
+  </div>
+  <div id="screen-transition" aria-hidden="true"></div>
+  <div id="load-error" role="alert">
+    Phaser failed to load. Check your internet connection and refresh the page.
+  </div>
+
+  <script src="vendor/phaser-3.90.0.min.js"></script>
+  <script>
+    if (typeof Phaser === 'undefined') {
+      document.querySelector('#game').style.display = 'none';
+      document.querySelector('#load-error').style.display = 'block';
+      throw new Error('Local Phaser runtime failed to load.');
+    }
+  </script>
+  <script src="js/constants.js?v=20260801-ending-long-slides"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/audio-config.js"></script>
+  <script src="js/audio-manager.js"></script>
+  <script src="js/state.js?v=20260806-render-ready"></script>
+  <script src="js/localization.js?v=20260806-render-ready"></script>
+  <script src="js/mechanisms.js?v=20260806-render-ready"></script>
+  <script src="js/companion.js?v=20260731-dialogue"></script>
+  <script src="js/levels.js?v=20260806-p3-trail"></script>
+  <script src="js/ui.js?v=20260806-render-ready"></script>
+  <script src="js/game.js?v=20260806-render-ready"></script>
+  <script src="js/pwa.js?v=20260806-render-ready"></script>
+</body>
+</html>
