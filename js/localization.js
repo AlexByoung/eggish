@@ -22,7 +22,7 @@ const TEXT = Object.freeze({
   'install.home': { zh: '选择“添加到主屏幕”。', en: 'Choose “Add to Home Screen”.' },
   'install.launch': { zh: '从主屏幕上的“蛋仔快跑”图标启动游戏。', en: 'Launch the game from its Home Screen icon.' },
   'install.close': { zh: '知道了', en: 'GOT IT' },
-  'select.help': { zh: '完成一关后即可解锁下一关。', en: 'Complete a level to unlock the next one.' },
+  'select.help': { zh: '所有关卡均可自由选择，通关状态会保留。', en: 'Choose any level freely. Completed levels stay marked.' },
   'settings.help': { zh: '声音与画面偏好会和进度一起保存。', en: 'Audio and visual preferences are stored with your progress.' },
   'settings.master': { zh: '主音量', en: 'MASTER' },
   'settings.music': { zh: '音乐', en: 'MUSIC' },
@@ -64,7 +64,7 @@ const TEXT = Object.freeze({
 });
 
 const LOCALIZED_LINES = new Map([
-  ['糖浆浅滩：糖浆还在流。先往上游看看。', 'Syrup Shallows: The syrup is still flowing. Let’s look upstream.'],
+  ['蛋仔要找到糖果河源头\n因为蛋蛋太唐了', 'Danzai must find the source of the Candy River.\nBecause Dandan is simply too Tang.'],
   ['糖箱门廊：箱子不会自己走。推一下吧。', 'Sugar Crate Arcade: Crates do not move by themselves. Give one a push.'],
   ['焦糖断桥：上游更干了。慢慢走，也会到。', 'Caramel Broken Bridge: It is drier upstream. Take it slowly—you will get there.'],
   ['软糖节拍桥：节拍乱了。准备好再出发。', 'Gummy Rhythm Bridge: The rhythm is broken. Move when you are ready.'],

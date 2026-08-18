@@ -74,7 +74,7 @@ The player has no direct attack, item inventory, or lifting action. Level 10 is 
 ## Shell and progression
 
 - The title screen provides Continue and Level Select.
-- Level 1 is always available; completing a level permanently unlocks the next one through Level 20 in the same browser.
+- All Levels 1–20 are always available from Level Select. Completing a level still records completion and advances the Continue marker without gating direct access to any level.
 - The save contains unlock/completion progress, language choice, preferences, and persistent special-collectible IDs. Deaths, attempts, player position, checkpoints, and puzzle-object state remain session or level state.
 - Pause freezes the complete gameplay simulation and offers resume, restart, level select, and title actions.
 - Menu and level transitions must never change a level solution or increment deaths.

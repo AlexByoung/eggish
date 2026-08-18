@@ -98,7 +98,7 @@ Objects are Phaser Arcade Physics images, sprites, groups, and generated texture
 
 ## UI
 
-- DOM UI in `index.html`: first-run language fork, title, locked level select, settings, pause, Next Level, Replay, and transition overlay.
+- DOM UI in `index.html`: first-run language fork, title, freely accessible level select with completion markers, settings, pause, Next Level, Replay, and transition overlay.
 - Phaser HUD, completion UI, and visual feedback are constructed in `js/ui.js`; level-specific hints remain with their builders.
 - `js/game.js` invokes visual helpers at semantic gameplay events without moving presentation code into player physics.
 - DOM listeners are installed once by `setupClearActions()` and `setupShell()`.

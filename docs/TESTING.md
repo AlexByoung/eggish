@@ -59,9 +59,9 @@ Open `http://127.0.0.1:8765/index.html`. Phaser is loaded from a CDN, so network
 - Jump uses frames `9–10` while rising and Fall uses frames `11–12` while descending; landing returns to Idle or Run without changing the physics Body.
 - At low and maximum running velocity, the six-frame Run playback rate remains visually coordinated with ground travel.
 - Title screen shows Start/Continue and Level Select.
-- Level Select disables locked levels and starts each available level correctly.
-- Completing each level unlocks the next through Level 20; the unlock and completed markers survive reload.
-- A missing, blocked, or malformed save falls back to Level 1 without blocking play.
+- Level Select keeps all Levels 1–20 enabled and starts every selected level correctly, including with a fresh save.
+- Completing each level records its completed marker and advances Continue progress through Level 20; those values survive reload.
+- A missing, blocked, or malformed save falls back to Level 1 for Continue without blocking direct selection of any level.
 - Escape/P opens pause; physics, Scene time, and Tweens remain frozen until resume.
 - Pause restart does not add a death; title and level-select actions leave no old level objects.
 - Level label, attempt count, death count, and control text remain visible.
@@ -70,7 +70,7 @@ Open `http://127.0.0.1:8765/index.html`. Phaser is loaded from a CDN, so network
 - Canvas and keyboard input recover after switching focus away and back; no movement key remains stuck.
 - Browser Console shows no new errors or warnings.
 - Old UI, hints, links, platforms, doors, and goals do not remain after transitions.
-- Repeatedly switch among all unlocked levels in both directions and confirm cleanup remains stable.
+- Repeatedly switch among all twenty levels in both directions and confirm cleanup remains stable.
 - Title, settings, level-select, pause, HUD, and completion UI use the token palette and shared button/panel components.
 - Title, settings, level-select, pause, completion actions, HUD, and clear panel use square corners, solid fills, and consistent two-pixel outlines without gradients or shadows.
 - Levels 1–6 render platforms as flat front rectangles without top/side planes, bevels, rounded edges, or highlight strips.
@@ -78,7 +78,7 @@ Open `http://127.0.0.1:8765/index.html`. Phaser is loaded from a CDN, so network
 - Each Level 6 ceiling-spike housing has a 120 × 64 static Body covering its complete visible rectangle; its upper 40 pixels must not allow the player to pass through.
 - Level 5 and Level 6 checkpoint flagpoles visually meet the ground surface while retaining their existing respawn coordinates and session-only behavior.
 - Player, spike, goal, box, pressure plate, door, moving platform, and falling platform remain visually distinct at normal and reduced viewport sizes.
-- Hover, focus, active, disabled, and locked button states remain readable using color changes without position or scale movement.
+- Hover, focus, active, completed, and available button states remain readable using color changes without position or scale movement.
 - Full/Reduced motion toggles update immediately and survive reload without changing mechanism timing.
 - Master, Music, and SFX sliders plus global mute update immediately and survive reload without changing level progress.
 - Before the first pointer/keyboard gesture, audio remains silent without an autoplay exception; the first interaction unlocks audio without replaying queued SFX.

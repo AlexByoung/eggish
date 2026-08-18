@@ -1379,7 +1379,7 @@ function setupShell(scene) {
   document.querySelectorAll('.level-select-button').forEach((button) => {
     button.addEventListener('click', () => {
       const level = Number(button.dataset.level);
-      if (developerModeActive || level <= highestUnlockedLevel) transitionToLevel(scene, level);
+      transitionToLevel(scene, level);
     });
   });
   document.querySelector('#ending-preview-button').addEventListener('click', () => {
@@ -1489,7 +1489,7 @@ function returnToTitleAfterEnding(scene) {
 }
 
 function transitionToLevel(scene, level) {
-  if (isTransitioning || level < 1 || (!developerModeActive && level > highestUnlockedLevel)) return;
+  if (isTransitioning || !Number.isInteger(level) || level < 1 || level > TOTAL_LEVELS) return;
   isTransitioning = true;
   setGameplayPaused(scene, true, false);
   audioManager.playMusic(
@@ -1769,11 +1769,9 @@ function updateProgressMenus() {
     const level = Number(button.dataset.level);
     const name = getLevelName(level);
     button.dataset.name = name;
-    button.disabled = !developerModeActive && level > highestUnlockedLevel;
+    button.disabled = false;
     button.textContent = String(level);
-    const state = !developerModeActive && level > highestUnlockedLevel
-      ? textFor('state.locked')
-      : completedLevels.has(level) ? textFor('state.complete') : textFor('state.available');
+    const state = completedLevels.has(level) ? textFor('state.complete') : textFor('state.available');
     const description = currentLanguage === 'en'
       ? `Level ${level}${name ? ` · ${name}` : ''} · ${state}`
       : `第 ${level} 关${name ? ` · ${name}` : ''} · ${state}`;

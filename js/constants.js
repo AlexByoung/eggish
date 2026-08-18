@@ -1209,7 +1209,7 @@ const LEVEL_12_TIMED_GATE_CONFIG = Object.freeze({
   warningMs: 2200
 });
 const LEVEL_NARRATIVE_HINTS = Object.freeze({
-  1: '糖浆浅滩：糖浆还在流。先往上游看看。',
+  1: '蛋仔要找到糖果河源头\n因为蛋蛋太唐了',
   2: '糖箱门廊：箱子不会自己走。推一下吧。',
   3: '焦糖断桥：上游更干了。慢慢走，也会到。',
   4: '软糖节拍桥：节拍乱了。准备好再出发。',
