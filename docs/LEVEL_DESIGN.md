@@ -10,12 +10,12 @@ Learn the protected movement/jump model, avoid one spike, and use a moving platf
 
 ### Prior knowledge
 
-None. The level provides basic movement text, a short jump demonstration, and a moving-platform hint.
+None. The level provides basic movement text, a two-step double-jump demonstration that explicitly shows the second press in midair, and a moving-platform hint.
 
 ### Rules introduced or combined
 
 - Horizontal movement and facing.
-- Full and short jump behavior.
+- Full and short jump behavior, including an explicit keyboard/touch explanation of the second midair press used for the double jump.
 - Red spikes cause death.
 - Green platforms move and can carry the player.
 - The bright flag-like object is the goal.

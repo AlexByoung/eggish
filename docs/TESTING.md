@@ -6,6 +6,7 @@
 - Verify no Up/Down or standalone Jump button is visible, and tapping the right half of the game surface uses the existing two-stage jump rule.
 - Verify the top-left gear hides the controls, pauses gameplay, and opens the existing action panel with current attempt/death counts; Resume restores the controls, and Restart restores the current level without incrementing deaths.
 - Verify the centered controls reminder appears in Level 1 and is hidden from Level 2 onward, while the level label remains at the top right.
+- In Level 1, verify the first jump guide explicitly explains the second midair press for keyboard and touch controls, and its ghost animation visibly performs two upward impulses with a `2` marker on the second.
 - Rotate to portrait during gameplay and confirm the bilingual rotation screen pauses the Scene. Rotate back and confirm gameplay and touch controls resume without a duplicate timer or input.
 - In iPhone/iPad Safari landscape, test with the address and tab bars both expanded and collapsed; the complete 16:9 canvas, top HUD, bottom controls, and safe-area padding must remain visible after every `visualViewport` resize.
 - Background the browser during active gameplay and confirm held controls clear and the pause menu is shown on return.

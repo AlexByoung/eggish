@@ -52,6 +52,8 @@ const TEXT = Object.freeze({
   'hud.controls': { zh: '移动  ← →    跳跃  空格 ×2    暂停  ESC', en: 'MOVE  ← →    JUMP  SPACE ×2    PAUSE  ESC' },
   'hud.controlsTouch': { zh: '左下左右移动    点击右半屏跳跃 ×2', en: 'MOVE LEFT/RIGHT    TAP RIGHT HALF TO JUMP ×2' },
   'guide.jump': { zh: '按空格键跳跃', en: 'PRESS SPACE TO JUMP' },
+  'guide.doubleJump': { zh: '按空格跳跃 · 空中再按一次\n即可二段跳', en: 'PRESS SPACE · PRESS AGAIN IN AIR\nTO DOUBLE JUMP' },
+  'guide.doubleJumpTouch': { zh: '点击右半屏跳跃 · 空中再点一次\n即可二段跳', en: 'TAP RIGHT SIDE · TAP AGAIN IN AIR\nTO DOUBLE JUMP' },
   'dialogue.continue': { zh: '点击继续  ▶', en: 'CLICK TO CONTINUE  ▶' },
   'speaker.player': { zh: '蛋仔', en: 'Danzai' },
   'speaker.mud': { zh: '小泥人', en: 'Mudling' },

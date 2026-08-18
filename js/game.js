@@ -954,12 +954,15 @@ function drawSyrupRiver(graphics, worldWidth, level, colors) {
 
 function createJumpGuide(scene) {
   const guide = scene.add.container(232, 404).setDepth(THEME.depths.guidance).setVisible(false);
-  const labelBg = scene.add.rectangle(0, -66, 210, 38, THEME.gameplay.cloud, 0.9)
+  const labelBg = scene.add.rectangle(0, -74, 310, 56, THEME.gameplay.cloud, 0.92)
     .setStrokeStyle(2, THEME.gameplay.skyStrong);
-  const label = scene.add.text(0, -66, textFor('guide.jump'), {
+  const guideTextKey = usesTouchControls() ? 'guide.doubleJumpTouch' : 'guide.doubleJump';
+  const label = scene.add.text(0, -74, textFor(guideTextKey), {
     fontFamily: THEME.typography.display,
-    fontSize: '15px',
-    color: THEME.colors.ink
+    fontSize: '14px',
+    color: THEME.colors.ink,
+    align: 'center',
+    lineSpacing: 4
   }).setOrigin(0.5);
   const ghost = scene.add.image(-62, 19, 'player').setAlpha(0.62).setScale(0.78);
   const arrow = scene.add.text(0, -20, '↗', {
@@ -967,7 +970,14 @@ function createJumpGuide(scene) {
     fontSize: '26px',
     color: THEME.colors.pink
   }).setOrigin(0.5);
-  guide.add([labelBg, label, arrow, ghost]);
+  const secondPress = scene.add.text(0, 0, '2', {
+    fontFamily: THEME.typography.display,
+    fontSize: '18px',
+    color: THEME.colors.ink,
+    backgroundColor: THEME.colors.butter,
+    padding: { x: 7, y: 3 }
+  }).setOrigin(0.5).setAlpha(0);
+  guide.add([labelBg, label, arrow, ghost, secondPress]);
 
   const jumpMotion = { progress: 0 };
   const motionTween = scene.tweens.add({
@@ -977,8 +987,27 @@ function createJumpGuide(scene) {
     repeat: -1,
     repeatDelay: 360,
     onUpdate: () => {
-      ghost.x = Phaser.Math.Linear(-62, 64, jumpMotion.progress);
-      ghost.y = 19 - Math.sin(Math.PI * jumpMotion.progress) * 62;
+      const progress = jumpMotion.progress;
+      ghost.x = Phaser.Math.Linear(-62, 64, progress);
+      const jumpKeyframes = [
+        { progress: 0, y: 19 },
+        { progress: 0.32, y: -43 },
+        { progress: 0.48, y: -27 },
+        { progress: 0.7, y: -70 },
+        { progress: 1, y: 19 }
+      ];
+      const nextIndex = jumpKeyframes.findIndex((frame) => frame.progress >= progress);
+      const endIndex = nextIndex < 1 ? 1 : nextIndex;
+      const start = jumpKeyframes[endIndex - 1];
+      const end = jumpKeyframes[endIndex];
+      const segmentProgress = Phaser.Math.Clamp(
+        (progress - start.progress) / (end.progress - start.progress),
+        0,
+        1
+      );
+      ghost.y = Phaser.Math.Linear(start.y, end.y, segmentProgress);
+      secondPress.setPosition(ghost.x + 28, ghost.y - 19);
+      secondPress.setAlpha(progress >= 0.43 && progress <= 0.62 ? 1 : 0);
     }
   });
   const arrowTween = scene.tweens.add({

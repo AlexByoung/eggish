@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_VERSION = 'danzai-pwa-20260818-v15';
+const CACHE_VERSION = 'danzai-pwa-20260818-v16';
 const APP_SHELL = [
   './',
   './index.html',
