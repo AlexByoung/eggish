@@ -1290,10 +1290,18 @@ function setupMobileLifecycle(scene) {
     syncVisibleViewportHeight();
     updateOrientation();
   };
-  window.addEventListener('orientationchange', updateMobileViewport);
+  const settleMobileViewport = () => {
+    updateMobileViewport();
+    window.requestAnimationFrame(updateMobileViewport);
+    window.setTimeout(updateMobileViewport, 260);
+  };
+  window.addEventListener('orientationchange', settleMobileViewport);
   window.addEventListener('resize', updateMobileViewport);
+  window.addEventListener('pageshow', settleMobileViewport);
   window.visualViewport?.addEventListener('resize', updateMobileViewport);
   window.visualViewport?.addEventListener('scroll', syncVisibleViewportHeight);
+  document.addEventListener('fullscreenchange', settleMobileViewport);
+  document.addEventListener('webkitfullscreenchange', settleMobileViewport);
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
       clearTouchInput();
@@ -1304,7 +1312,7 @@ function setupMobileLifecycle(scene) {
       }
     }
   });
-  updateMobileViewport();
+  settleMobileViewport();
 }
 
 function setupShell(scene) {

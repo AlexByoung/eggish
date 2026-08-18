@@ -14,7 +14,14 @@ const TEXT = Object.freeze({
   'menu.endingPreview': { zh: '开发模式 · 结局动画预览', en: 'DEV MODE · ENDING PREVIEW' },
   'menu.settings': { zh: '设置', en: 'SETTINGS' },
   'menu.language': { zh: '语言', en: 'LANGUAGE' },
+  'menu.fullscreen': { zh: '全屏游玩', en: 'PLAY FULLSCREEN' },
   'menu.back': { zh: '返回', en: 'BACK' },
+  'install.title': { zh: '在 Safari 中全屏游玩', en: 'Play fullscreen in Safari' },
+  'install.copy': { zh: 'Safari 不允许网页自动隐藏地址栏。添加到主屏幕后，再从图标打开即可进入独立全屏模式。', en: 'Safari does not let websites hide its address bar automatically. Add the game to your Home Screen, then launch it from the icon for standalone fullscreen play.' },
+  'install.share': { zh: '点击 Safari 工具栏里的“分享”按钮。', en: 'Tap the Share button in the Safari toolbar.' },
+  'install.home': { zh: '选择“添加到主屏幕”。', en: 'Choose “Add to Home Screen”.' },
+  'install.launch': { zh: '从主屏幕上的“蛋仔快跑”图标启动游戏。', en: 'Launch the game from its Home Screen icon.' },
+  'install.close': { zh: '知道了', en: 'GOT IT' },
   'select.help': { zh: '完成一关后即可解锁下一关。', en: 'Complete a level to unlock the next one.' },
   'settings.help': { zh: '声音与画面偏好会和进度一起保存。', en: 'Audio and visual preferences are stored with your progress.' },
   'settings.master': { zh: '主音量', en: 'MASTER' },
@@ -199,6 +206,10 @@ function applyDomLanguage() {
   set('#title-menu h1', 'game.title'); set('#title-menu p', 'game.subtitle');
   set('#open-level-select', 'menu.levelSelect'); set('#open-settings', 'menu.settings');
   set('#open-language', 'menu.language'); set('#level-select-menu h1', 'menu.levelSelect');
+  set('#fullscreen-button', 'menu.fullscreen');
+  set('#install-help-title', 'install.title'); set('#install-help-copy', 'install.copy');
+  set('#install-help-step-share', 'install.share'); set('#install-help-step-home', 'install.home');
+  set('#install-help-step-launch', 'install.launch'); set('#install-help-close', 'install.close');
   set('#ending-preview-button', 'menu.endingPreview');
   set('#level-select-menu p', 'select.help'); set('#level-select-back', 'menu.back');
   set('#settings-menu h1', 'menu.settings'); set('#settings-menu p', 'settings.help');

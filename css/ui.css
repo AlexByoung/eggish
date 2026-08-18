@@ -59,7 +59,7 @@ canvas {
   display: flex;
   align-items: flex-end;
   justify-content: flex-start;
-  padding: 12px max(14px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left));
+  padding: 14px max(18px, env(safe-area-inset-right)) max(14px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
   pointer-events: none;
   user-select: none;
   -webkit-user-select: none;
@@ -70,26 +70,30 @@ canvas {
 .touch-control-cluster {
   display: flex;
   align-items: flex-end;
-  gap: 8px;
+  gap: 12px;
   pointer-events: auto;
 }
 
 #touch-controls button {
-  width: clamp(46px, 7.5vw, 66px);
-  height: clamp(46px, 7.5vw, 66px);
+  width: clamp(64px, 9.5vw, 88px);
+  height: clamp(64px, 9.5vw, 88px);
   padding: 0;
-  border: 2px solid var(--color-ink);
+  border: 2px solid rgba(103, 85, 110, 0.64);
+  border-color: color-mix(in srgb, var(--color-ink) 64%, transparent);
   border-radius: 12px;
-  background: color-mix(in srgb, var(--color-surfaceStrong) 82%, transparent);
-  box-shadow: 0 3px 0 color-mix(in srgb, var(--color-ink) 32%, transparent);
+  background: rgba(255, 255, 255, 0.42);
+  background: color-mix(in srgb, var(--color-surfaceStrong) 42%, transparent);
+  box-shadow: 0 3px 0 rgba(103, 85, 110, 0.2);
+  box-shadow: 0 3px 0 color-mix(in srgb, var(--color-ink) 20%, transparent);
   color: var(--color-ink);
-  font: 800 clamp(18px, 3vw, 28px) var(--font-display);
+  font: 800 clamp(26px, 4vw, 38px) var(--font-display);
   -webkit-tap-highlight-color: transparent;
   touch-action: none;
 }
 
 #touch-controls button.is-pressed {
-  background: var(--color-butter);
+  background: rgba(255, 232, 163, 0.68);
+  background: color-mix(in srgb, var(--color-butter) 68%, transparent);
   box-shadow: none;
   transform: translateY(3px);
 }
@@ -99,13 +103,16 @@ canvas {
   z-index: 36;
   top: max(12px, env(safe-area-inset-top));
   left: max(14px, env(safe-area-inset-left));
-  width: clamp(42px, 6.5vw, 54px);
-  height: clamp(42px, 6.5vw, 54px);
+  width: clamp(50px, 7vw, 62px);
+  height: clamp(50px, 7vw, 62px);
   padding: 0;
-  border: 2px solid var(--color-ink);
+  border: 2px solid rgba(103, 85, 110, 0.64);
+  border-color: color-mix(in srgb, var(--color-ink) 64%, transparent);
   border-radius: 12px;
-  background: color-mix(in srgb, var(--color-surfaceStrong) 86%, transparent);
-  box-shadow: 0 3px 0 color-mix(in srgb, var(--color-ink) 32%, transparent);
+  background: rgba(255, 255, 255, 0.44);
+  background: color-mix(in srgb, var(--color-surfaceStrong) 44%, transparent);
+  box-shadow: 0 3px 0 rgba(103, 85, 110, 0.2);
+  box-shadow: 0 3px 0 color-mix(in srgb, var(--color-ink) 20%, transparent);
   color: var(--color-ink);
   font: 800 clamp(20px, 3vw, 26px) var(--font-display);
   line-height: 1;
@@ -153,6 +160,50 @@ canvas {
 #orientation-warning div { font-size: 64px; line-height: 1; }
 #orientation-warning strong { font: 800 28px var(--font-display); }
 #orientation-warning span { color: var(--color-inkSoft); font: 700 13px var(--font-display); letter-spacing: 0.08em; }
+
+#install-help {
+  position: fixed;
+  z-index: 90;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: max(20px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+  background: rgba(103, 85, 110, 0.22);
+  background: color-mix(in srgb, var(--color-ink) 22%, transparent);
+}
+
+#install-help[hidden] { display: none; }
+
+.install-help-card {
+  width: min(88vw, 460px);
+  max-height: calc(var(--app-height) - 40px);
+  overflow-y: auto;
+  padding: var(--space-xl);
+  border: 2px solid var(--color-ink);
+  border-radius: var(--radius-panel);
+  background: var(--color-surfaceStrong);
+  color: var(--color-ink);
+}
+
+.install-help-card h2 {
+  margin: 0 0 var(--space-sm);
+  font: 800 clamp(22px, 4vw, 30px) var(--font-display);
+}
+
+.install-help-card p,
+.install-help-card ol {
+  margin: 0 0 var(--space-lg);
+  color: var(--color-inkSoft);
+  line-height: 1.55;
+}
+
+.install-help-card ol {
+  padding-left: 1.4em;
+  text-align: left;
+}
+
+.install-help-card li + li { margin-top: var(--space-xs); }
+.install-help-card .ui-button { width: 100%; }
 
 #load-error,
 .menu-panel {
