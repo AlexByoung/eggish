@@ -11,6 +11,7 @@
 - Background the browser during active gameplay and confirm held controls clear and the pause menu is shown on return.
 - Load every level through `?dev=1`, confirm one canvas, visible landscape touch controls whenever no dialogue is active, and no new Console errors.
 - Visit once online, wait for service-worker installation, stop the server, and reload. The title menu, local Phaser runtime, scripts, sprite, CSS, manifest, and icons must all resolve from cache.
+- With an older Service Worker controlling the page, deploy a new cache version and verify `controllerchange` causes exactly one reload; confirm new JavaScript/CSS appears without clearing site data and offline fallback still works afterward.
 - Validate `app.webmanifest`, including fullscreen display, landscape orientation, 192/512 icons, and the maskable icon.
 - Verify the legacy `block-hero.progress.v1` key loads older version-1 saves, fills missing fields, clamps invalid level/volume values, and preserves unlocks after reload and tab close/reopen on the same origin.
 - Place malformed JSON in the save key and reload; the language/new-game flow must appear without a white screen and Console must contain one clear save warning.

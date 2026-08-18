@@ -28,7 +28,7 @@ The game uses one Phaser Scene configured as `{ preload, create, update }` in `j
 - `js/companion.js`: small-companion data, encounter, persistence, following, reset, and cleanup behavior.
 - `js/levels.js`: Level 2–20 construction, collider wiring, world cleanup, and reset functions.
 - `js/game.js`: Phaser configuration, Level 1, player/input/camera/animation logic, generated fallback and gameplay textures, death/completion flow, and UI/menu behavior.
-- `js/pwa.js`: HTTP(S)-only registration for the root service worker; direct `file://` launch remains supported without PWA features.
+- `js/pwa.js`: fullscreen/install UI for touch browsers; the small inline updater in `index.html` registers the root service worker only on HTTP(S), so direct `file://` launch remains supported without PWA features.
 - `js/ui.js`: reusable Phaser HUD, completion panel, death/respawn presentation, and celebration particles.
 
 ## Mobile input and installability
@@ -38,7 +38,7 @@ The game uses one Phaser Scene configured as `{ preload, create, update }` in `j
 - Portrait orientation blocks gameplay and pauses the Scene until the device returns to landscape. Browser backgrounding clears held touch state and opens the pause menu during active gameplay.
 - The DOM shell uses `dvh` with a `visualViewport.height` CSS-variable fallback so Safari address/tab bars and their expand-collapse transitions cannot make the 16:9 game container taller than the actually visible viewport.
 - `app.webmanifest` requests fullscreen landscape presentation and points to standard and maskable icons under `assets/icons/`.
-- `service-worker.js` precaches the complete same-origin application shell, uses a network-first navigation strategy with an offline `index.html` fallback, and serves versioned cached runtime assets without relying on query strings.
+- `service-worker.js` precaches the complete same-origin application shell. Navigation, scripts, styles, workers, and manifests are network-first with cache fallback; heavier immutable assets remain cache-first. When a new worker takes control, the inline updater in `index.html` reloads an already-controlled page exactly once so deployed code is visible without clearing site data.
 - Developer-only level access and the ending preview are available under `?dev=1`; production URLs keep the ending-preview button hidden.
 - `css/ui.css`: reusable DOM panels, buttons, transitions, responsive layout, and reduced-motion rules.
 

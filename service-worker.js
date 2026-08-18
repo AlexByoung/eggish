@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_VERSION = 'danzai-pwa-20260818-v14';
+const CACHE_VERSION = 'danzai-pwa-20260818-v15';
 const APP_SHELL = [
   './',
   './index.html',
@@ -58,6 +58,24 @@ self.addEventListener('fetch', (event) => {
           return response;
         })
         .catch(() => caches.match('./index.html', { ignoreSearch: true }))
+    );
+    return;
+  }
+
+  const networkFirstDestination = ['script', 'style', 'worker'].includes(event.request.destination);
+  const networkFirstPath = requestUrl.pathname.endsWith('.webmanifest')
+    || requestUrl.pathname.endsWith('.json');
+
+  if (networkFirstDestination || networkFirstPath) {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          if (!response || response.status !== 200) return response;
+          const copy = response.clone();
+          caches.open(CACHE_VERSION).then((cache) => cache.put(event.request, copy));
+          return response;
+        })
+        .catch(() => caches.match(event.request, { ignoreSearch: true }))
     );
     return;
   }

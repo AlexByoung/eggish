@@ -24,6 +24,8 @@ python -m http.server 8765 --bind 127.0.0.1
 
 若要隐藏 Safari 浏览器栏，在 iPhone 或 iPad 的 Safari 中打开正式网址，点击“全屏游玩”，然后按照提示选择“分享”→“添加到主屏幕”。之后从主屏幕上的《蛋仔快跑》图标启动，即可使用独立 PWA 模式。左下角方向键已经针对横屏触控放大，并使用半透明底色减少对关卡画面的遮挡。
 
+发布新版本后，受旧 Service Worker 控制的已打开页面会在新 Worker 接管时自动刷新一次。JavaScript、CSS 和 manifest 在线时优先读取网络最新版，离线时再回退到当前 PWA 缓存。
+
 ## 存档
 
 进度保存在当前浏览器当前域名的 `localStorage` 中，存档键保持为 `block-hero.progress.v1`。
